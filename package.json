@@ -1,0 +1,32 @@
+{
+  "name": "@lumjs/doxs",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/supernovus/lum.doxs.js.git"
+  },
+  "dependencies": {
+    "@lumjs/core": "^1.16.0",
+    "highlight.js": "^11.9.0",
+    "isomorphic-dompurify": "^1.9.0",
+    "marked": "^10.0.0",
+    "marked-directive": "^1.0.3",
+    "marked-highlight": "^2.0.7",
+    "textile-js": "^2.1.1",
+    "twing": "^6.0.0-alpha.1",
+    "yaml": "^2.3.4"
+  },
+  "devDependencies": {
+    "@lumjs/tests": "^1.8.1"
+  },
+  "scripts": {
+    "test": "lumtest.js",
+    "build-docs": "jsdoc -c ./jsdoc.json"
+  }
+}
