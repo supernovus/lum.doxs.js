@@ -1,5 +1,7 @@
 # lum.doxs.js
 
+## THIS BRANCH IS EXPERIMENTAL AND VERY BROKEN
+
 A document markup format integrating [Twing], [Marked], and [Textile].
 
 Inspired by my older [lum-wiki] PHP library, but meant for in-browser 
