@@ -31,7 +31,8 @@ class Tester
   build(test)
   {
     this.hook('preBuild', test);
-    test.doc = this.parser.load(test.content, test.data);
+    const parser = test.parser ?? this.parser;
+    test.doc = parser.load(test.content, test.data);
     this.hook('postBuild', test);
     return this;
   }
@@ -39,7 +40,8 @@ class Tester
   async render(test)
   {
     this.hook('preRender', test);
-    test.output = await this.parser.parse(test.doc);
+    const parser = test.parser ?? this.parser;
+    test.output = await parser.parse(test.doc);
     this.hook('postRender', test);
     return test;
   }

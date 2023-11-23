@@ -1,6 +1,14 @@
 const Doxs = require('../lib');
 const Testset = require('./tester');
-const parser = new Doxs.Parser();
+const Parser = Doxs.Parser;
+const Defs = Doxs.DEFAULTS;
+
+const parsers = 
+{
+  default:  new Parser(),
+  fmMerged: new Parser({frontMatter: {}}),
+  fmNested: new Parser({frontMatter: {tagName: 'fm'}}),
+}
 
 const testMatter =
 `---
@@ -36,7 +44,7 @@ age: 42</li>
 </ul>
 <hr>
 <h1>Hello World</h1>
-<h2>A test of Frontmatter content, with <code>frontMatter: false</code></h2>
+<h2>A test of Frontmatter content, with no <code>frontMatter</code></h2>
 `;
 
 const mergedTest =
@@ -57,7 +65,7 @@ const yamlOutput =
 `
 
 const mergedOutput = '<h1>A test of Frontmatter content,'
-  + ' with <code>frontMatter: true</code></h1>'+yamlOutput;
+  + ' with <code>frontMatter: {}</code></h1>'+yamlOutput;
 
 const nestedTest =
 `# Hello {{ name }}
@@ -70,43 +78,42 @@ Hi, my name is {{ fm.name }}, I am {{ fm.age }}, and my friends are:
 
 const nestedOutput =
 `<h1>Hello Darkness, my old friend</h1>
-<h2>A test of Frontmatter content, with <code>frontMatter: {string}</code></h2>`+yamlOutput;
+<h2>A test of Frontmatter content, with <code>frontMatter: {tagName}</code></h2>`+yamlOutput;
 
-const tests = new Testset(module, parser,
+let fmi;
+
+const tests = new Testset(module, parsers.default,
 [
   {
+    name: 'frontMatter OFF',
     content: testMatter+offTest,
     expected: offOutput,
     data:
     {
       name: 'World',
-      desc: 'A test of Frontmatter content, with `frontMatter: false`',
+      desc: 'A test of Frontmatter content, with no `frontMatter`',
     },
   },
   {
-    preBuild(test)
-    {
-      test.parser.frontMatter = true;
-    },
+    name: 'frontMatter ON, DEFAULT',
+    parser: parsers.fmMerged,
     content: testMatter+mergedTest,
     expected: mergedOutput,
     data: 
     {
       name: 'This will be overridden',
-      desc: 'A test of Frontmatter content, with `frontMatter: true`',
+      desc: 'A test of Frontmatter content, with `frontMatter: {}`',
     },
   },
   {
-    preBuild(test)
-    {
-      test.parser.frontMatter = 'fm';
-    },
+    name: 'frontMatter ON, TAGNAME',
+    parser: parsers.fmNested,
     content: testMatter+nestedTest,
     expected: nestedOutput,
     data: 
     {
       name: 'Darkness, my old friend',
-      desc: 'A test of Frontmatter content, with `frontMatter: {string}`',
+      desc: 'A test of Frontmatter content, with `frontMatter: {tagName}`',
     },
   },
 ]);

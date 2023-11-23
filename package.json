@@ -19,7 +19,7 @@
     "marked-directive": "^1.0.3",
     "marked-highlight": "^2.0.7",
     "textile-js": "^2.1.1",
-    "twing": "^6.0.0-alpha.1",
+    "twing": "^5.1.0",
     "yaml": "^2.3.4"
   },
   "devDependencies": {
