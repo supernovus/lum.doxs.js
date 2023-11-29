@@ -1,6 +1,6 @@
 {
   "name": "@lumjs/doxs",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "lib/index.js",
   "exports": {
     ".": "./lib/index.js",
@@ -12,7 +12,7 @@
     "url": "https://github.com/supernovus/lum.doxs.js.git"
   },
   "dependencies": {
-    "@lumjs/core": "^1.16.0",
+    "@lumjs/core": "^1.18.0",
     "highlight.js": "^11.9.0",
     "isomorphic-dompurify": "^1.9.0",
     "marked": "^10.0.0",
