@@ -1,14 +1,13 @@
 # lum.doxs.js
 
-## THIS BRANCH IS EXPERIMENTAL AND VERY BROKEN
-
-A document markup format integrating [Twing], [Marked], and [Textile].
+A document markup format integrating multiple rendering engines into
+a single component. The default set being [Twing], [Marked], and [Textile].
 
 Inspired by my older [lum-wiki] PHP library, but meant for in-browser 
 rendering instead of server-side, and abandoning all the wiki-formatting 
 stuff in favour of making it more flexible instead.
 
-It also integrates [DOMPurify] to handle XSS sanitization.
+It also has [DOMPurify] and FrontMatter (YAML-headers) support.
 
 ## Official URLs
 
