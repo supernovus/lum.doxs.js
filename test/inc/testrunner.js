@@ -2,9 +2,9 @@
 
 const core = require('@lumjs/core');
 const {F} = core.types;
-const Test = require('@lumjs/tests');
+const Test = require('@lumjs/tests/test');
 
-class Tester
+class TestRunner
 {
   constructor(testMod, parser, tests)
   {
@@ -49,10 +49,6 @@ class Tester
   validate(test)
   {
     this.$test.is(test.output, test.expected, test.name);
-    if (++this.ran === this.plan)
-    {
-      this.$test.done();
-    }
   }
   
   test(test)
@@ -62,12 +58,17 @@ class Tester
 
   run()
   {
-    for (const test of this.tests)
+    const run = this;
+    this.$test.async(async function()
     {
-      // Make a way for the tests to change parser settings on the fly.
-      this.test(test);
-    }
+      for (const test of run.tests)
+      {
+        run.test(test);
+      }
+    });
+    this.$test.done();
   }
+
 } // Tester class
 
-module.exports = Tester;
+module.exports = TestRunner;
